@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>계좌 메인</h1>
+	<h1>관리자 메인</h1>
 </body>
 </html>
