@@ -11,10 +11,11 @@ import pool.Constant;
 public class Command {
 	public static void move(HttpServletRequest request,HttpServletResponse response,String path)throws ServletException, IOException {
 		String dispatcher = "";
-		dispatcher= (path.equals("index"))  ? "/index.jsp" : Constant.VIEW + "path" + Constant.JSP;
-		request.getRequestDispatcher(dispatcher)
-		.forward(request, response);
-		
-		
+		if(path.equals("index")) {
+			dispatcher = "/index"+Constant.JSP;
+		}else {
+			dispatcher = Constant.VIEW + path + Constant.JSP;
+		}
+		request.getRequestDispatcher(dispatcher).forward(request, response);
 	}
 }
