@@ -21,10 +21,12 @@ public class AccountBean {
 	public void setMoney(int money) {
 		this.money = money;
 	}
-	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return String.format("");
-	}
+		return String.format("[계좌정보]\n"
+				+ "계좌번호 : %s\n"
+				+ "개설날짜 : %s\n"
+				+ "잔액 : %d", accountNum,today,money);
+	
+}
 }

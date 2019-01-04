@@ -28,7 +28,7 @@ public class HomeController extends HttpServlet {
 		}
 		switch((cmd == null) ? "move": cmd) {
 		case "move":
-			Command.move(request, response, "member/main");
+			Command.move(request, response, dir,page);
 			break;
 	}
 	}

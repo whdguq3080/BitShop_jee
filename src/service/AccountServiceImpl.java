@@ -1,67 +1,71 @@
 package service;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 import domain.AccountBean;
 
 public class AccountServiceImpl implements AccountService {
-
-	@Override
-	public void CreateAccountNum() {
-		// TODO Auto-generated method stub
-		
+	private ArrayList<AccountBean> list;
+	public AccountServiceImpl() {
+		list = new ArrayList<>();
 	}
-
 	@Override
-	public ArrayList<AccountBean> findAll() {
+	public String openAccountNum(int money) {
+		String accountNum = "";
+		AccountBean account = new AccountBean();
+		account.setAccountNum(createAccountNum());
+		account.setMoney(money);
+		account.setToday(date());
+		list.add(account);
+		accountNum = account.getAccountNum();
+		return accountNum;
+	}
+	@Override
+	public String createAccountNum() {
+		Random random = new Random();
+		return random.nextInt(9000)+1000+"-"+random.nextInt(10000);
+	}
+	@Override
+	public String date() {
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-MM");
+		return sdf.format(date);
+	}
+	@Override
+	public ArrayList<AccountBean> list() {
+		return list;
+	}
+	@Override
+	public AccountBean listAccountNum(String accountNum) {
+		AccountBean accountBean = new AccountBean();
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getAccountNum().equals(accountNum)) {
+				accountBean = list.get(i);
+			}
+		}
+		return accountBean;
+	}
+	@Override
+	public String accountCount() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
-	public ArrayList<AccountBean> findSome() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<AccountBean> findOne() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int count() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void exist() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int money() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete() {
+	public void updateDeposit(String account, int money) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public String toString() {
+	public void updateWidthraw(String account, int money) {
 		// TODO Auto-generated method stub
-		return String.format("");
+		
+	}
+	@Override
+	public void deleteAccount(String account) {
+		// TODO Auto-generated method stub
+		
 	}
 }

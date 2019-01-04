@@ -42,9 +42,11 @@ public class ArticleBean {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return String.format("");
+		return "ArticleBean [seq=" + seq + ", title=" + title + ", content=" + content + ", writter=" + writter
+				+ ", regdate=" + regdate + "]";
 	}
+	
 }

@@ -34,9 +34,11 @@ public class AdminBean {
 	public void setAuth(String auth) {
 		this.auth = auth;
 	}
+
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return String.format("");
+		return "AdminBean [adminNum=" + adminNum + ", name=" + name + ", pass=" + pass + ", auth=" + auth + "]";
 	}
+	
+	
 }

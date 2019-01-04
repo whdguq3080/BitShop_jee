@@ -31,17 +31,18 @@ public class MemberController extends HttpServlet {
 		
 		switch ((cmd == null) ? "move" : cmd) {
 		case "login":
-			String id = request.getParameter("id");
-			String pass = request.getParameter("pass");
+			String id = request.getParameter("uid");
+			String pass = request.getParameter("upw");
 			
 			if (id.equals("test") && pass.equals("test")) {
-				Command.move(request, response, dir+"/"+page);
 			} else {
-				Command.move(request, response, "index");
+				dir="";
+				page="index";
 			}
+			Command.move(request, response, dir,page);
 			break;
 		case "move":
-			Command.move(request, response, dir+"/"+page);
+			Command.move(request, response, dir,page);
 			break;
 		}
 	}

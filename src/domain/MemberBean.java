@@ -34,9 +34,10 @@ public class MemberBean {
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
+
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return String.format("");
+		return "MemberBean [id=" + id + ", name=" + name + ", pass=" + pass + ", ssn=" + ssn + "]";
 	}
+	
 }

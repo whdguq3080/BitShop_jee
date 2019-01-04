@@ -30,7 +30,7 @@ public class ArticleController extends HttpServlet {
 		switch((cmd == null) ? "move": cmd) {
 		case "move":
 			System.out.println("액션이 이동");
-			Command.move(request, response, dir+"/"+page);
+			Command.move(request, response, dir,page);
 			break;
 	}
 	}
