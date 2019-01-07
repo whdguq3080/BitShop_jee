@@ -26,12 +26,12 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public String createAccountNum() {
 		Random random = new Random();
-		return random.nextInt(9000)+1000+"-"+random.nextInt(10000);
+		return random.nextInt(9000)+1000+"-"+random.nextInt(10000);	
 	}
 	@Override
 	public String date() {
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-MM");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm");
 		return sdf.format(date);
 	}
 	@Override
@@ -40,13 +40,14 @@ public class AccountServiceImpl implements AccountService {
 	}
 	@Override
 	public AccountBean listAccountNum(String accountNum) {
-		AccountBean accountBean = new AccountBean();
+		AccountBean account = new AccountBean();
 		for(int i=0; i<list.size(); i++) {
 			if(list.get(i).getAccountNum().equals(accountNum)) {
-				accountBean = list.get(i);
+				account = list.get(i);
+				break;
 			}
 		}
-		return accountBean;
+		return account;
 	}
 	@Override
 	public String accountCount() {

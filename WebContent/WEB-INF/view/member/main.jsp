@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,45 +16,33 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<div id="navi-bar">
-					<ul>
-                        <li><a href="home.do">홈</a></li>
-                        <li><a href="member.do"><font color="yellow">회원관리</font></a></li>
-                        <li><a href="account.do">계좌관리</a></li>
-                        <li><a href="article.do">게시판</a></li>
-                        <li><a href="admin.do">관리자</a></li>
-                    </ul>
-				</div>
+			<%@ include file="../home/navi-bar.jsp" %>
 			</td>
 		</tr>
 		<tr style="height: 300px">
-			<td id="side-menu">
-			<table>
-                    <tr>
-                        <td>회원가입</td>
-                    </tr>
-                    <tr>
-                        <td>회원목록</td>
-                    </tr>
-                    <tr>
-                        <td>회원검색(이름)</td>
-                    </tr>
-                    <tr>
-                        <td>회원검색(ID)</td>
-                    </tr>
-                    <tr>
-                        <td>회원수</td>
-                    </tr>
-                    <tr>
-                        <td>회원정보 수정</td>
-                    </tr>
-                    <tr>
-                        <td>회원 탈퇴</td>
-                    </tr>
-
-                </table>
-			</td>
-			<td></td>
+			<td style="width: 30%">
+			<%@ include file="../member/side-menu.jsp" %>
+		</td>
+		<td>
+		<%
+		String dest = request.getAttribute("dest").toString();
+		switch(dest){
+		case "NONE" : 
+			%>
+			<%@ include file="mypage.jsp" %>			
+			<%
+			break;
+		case "join-form":
+			%>
+			<%@ include file="join-form.jsp"%>
+			
+			<%	
+			break;
+			
+		}
+			%>
+			
+		</td>
 		</tr>
 	</table>
 </body>

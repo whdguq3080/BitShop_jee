@@ -5,7 +5,7 @@
 	<table id="wrapper">
 		<tr>
 			<td colspan="2">
-				<%@ include file="header.jsp" %>
+				<h1 id="title">비트쇼핑몰 </h1>
 			</td>
 		</tr>
 		<tr>

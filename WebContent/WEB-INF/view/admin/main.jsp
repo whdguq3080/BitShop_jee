@@ -11,7 +11,7 @@
 	<table id="wrapper">
 		<tr>
 			<td colspan="2">
-				<h1>비트 쇼핑몰</h1>
+				<h1 id="title">MASTER</h1>
 			</td>
 		</tr>
 		<tr>
