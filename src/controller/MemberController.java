@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.Command;
+import domain.MemberBean;
+import service.MemberService;
+import service.MemberServiceImpl;
 
 /**
  * Servlet implementation class MemberController
@@ -17,9 +20,12 @@ import command.Command;
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		MemberService memberService = MemberServiceImpl.getInstance();
+		MemberBean member = null;
 		String cmd = request.getParameter("cmd");
 		String page = request.getParameter("page");
 		if(page == null) {page = "main";}
+		System.out.println("page"+page);
 		String dir = request.getParameter("dir");
 		if(dir== null) {
 			String sPath= request.getServletPath();
@@ -27,7 +33,8 @@ public class MemberController extends HttpServlet {
 			System.out.println("sPath   : "+sPath);
 			dir = sPath.substring(1);
 		}
-		System.out.println("dir : "+dir);
+		System.out.println("cmd:"+cmd);
+		System.out.println("dir:"+dir);
 		
 		switch ((cmd == null) ? "move" : cmd) {
 		case "login":
@@ -47,6 +54,17 @@ public class MemberController extends HttpServlet {
 				dest ="NONE";
 			}
 			request.setAttribute("dest",dest );
+			Command.move(request, response, dir,page);
+			break;
+		case "join":
+			member = new MemberBean();
+			member.setId(request.getParameter("id"));
+			member.setName(request.getParameter("name"));
+			member.setPass(request.getParameter("pass"));
+			member.setSsn(request.getParameter("ssn"));
+			MemberServiceImpl.getInstance().joinMember(member);
+			request.setAttribute("dest", "mypage");
+			request.setAttribute("member",  member);
 			Command.move(request, response, dir,page);
 			break;
 		}

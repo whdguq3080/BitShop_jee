@@ -1,5 +1,5 @@
 package dao;
 
-public class AccountDAOImpl {
+public class AccountDAOImpl implements AccountDAO {
 
 }
