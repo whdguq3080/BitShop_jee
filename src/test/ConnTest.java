@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import pool.Constant;
+
 public class ConnTest {
 
 	public static void main(String[] args) {
@@ -14,7 +16,7 @@ public class ConnTest {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
+			Class.forName(Constant.ORACLE_DRIVER);
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","oracle" , "password");
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM member");

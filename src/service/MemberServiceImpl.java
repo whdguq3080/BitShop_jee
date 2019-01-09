@@ -8,64 +8,61 @@ import domain.MemberBean;
 public class MemberServiceImpl implements MemberService {
 
 	private static MemberServiceImpl instance = new MemberServiceImpl();
-	private MemberServiceImpl() {}
+	private MemberServiceImpl() {
+		dao = MemberDAOImpl.getInstance();
+	}
 	public static MemberServiceImpl getInstance() {return instance;}
 	
-	
+	MemberDAOImpl dao;
 	
 	@Override
-	public void joinMember(MemberBean member) {
+	public void createMember(MemberBean member) {
 		System.out.println("멤버서비스 조인에 진입");
 		System.out.println("===컨트롤러에서 넘어온 회원정보");
-		System.out.println("id :"+member.getId());
-		System.out.println("pass:"+member.getName());
-		System.out.println("비번" + member.getPass());
-		System.out.println("주민번호"+member.getSsn());
-		MemberDAOImpl.getInstance().insertMember(member);
+		dao.insertMember(member);
 	}
 
 	@Override
-	public ArrayList<MemberBean> listName() {
+	public ArrayList<MemberBean> findAllMembers() {
 		ArrayList<MemberBean> list = new ArrayList<>();
+		dao.selectAllMembers();
 		return list;
 	}
 
 	@Override
-	public ArrayList<MemberBean> findByName() {
+	public ArrayList<MemberBean> findMembersByName(String name) {
 		ArrayList<MemberBean> list = new ArrayList<>();
-		
+		dao.selectMembersByName(name);
 		return list;
 	}
 
 	@Override
-	public MemberBean findById(String id) {
+	public MemberBean findMemberById(String id) {
 		MemberBean member = new MemberBean();
-		
+		member = dao.selectMemberById(id);
 		return member;
 	}
 
 	@Override
-	public int count() {
-		// TODO Auto-generated method stub
+	public int countMembers() {
+		dao.countMembers();
 		return 0;
 	}
 
 	@Override
-	public void exist() {
-		// TODO Auto-generated method stub
-		
+	public boolean existMember(String id,String pass) {
+		dao.existMember(id, pass);
+			return false;
 	}
 
 	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
+	public void changeMember(MemberBean member) {
+		dao.updateMember(member);
 	}
 
 	@Override
-	public void delete() {
-		// TODO Auto-generated method stub
-		
+	public void removeMember(String id,String pass) {
+		dao.deleteMember(id, pass);
 	}
 	@Override
 	public String toString() {

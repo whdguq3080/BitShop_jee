@@ -13,7 +13,7 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public ArrayList<AdminBean> findAll() {
+	public ArrayList<AdminBean> findArticle() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -31,7 +31,7 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public int count() {
+	public int countAdmin() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -52,10 +52,5 @@ public class ArticleServiceImpl implements ArticleService {
 	public void delete() {
 		// TODO Auto-generated method stub
 		
-	}
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return String.format("");
 	}
 }

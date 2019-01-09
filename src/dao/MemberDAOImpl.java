@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import domain.MemberBean;
+import factory.DatabaseFactory;
 
 public class MemberDAOImpl implements MemberDAO {
 
@@ -19,20 +20,129 @@ public class MemberDAOImpl implements MemberDAO {
 	private ResultSet rs;
 	@Override
 	public void insertMember(MemberBean member) {
-		System.out.println("insertMember**********************************");
+		try {
+			DatabaseFactory
+			.createDatabase("oracle")
+			.getConnection()
+			.createStatement()
+			.executeUpdate(String.format(
+					"INSERT INTO member(id,name,pass,ssn) \n"
+					+ "VALUES('%s','%s','%s','%s')", 
+					member.getId(),member.getName(),member.getPass(),member.getSsn()));
+		} 
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public ArrayList<MemberBean> selectAllMembers() {
+		ArrayList<MemberBean> list = new ArrayList<>();
+		try {
+			DatabaseFactory.
+			createDatabase("oracle")
+			.getConnection()
+			.createStatement()
+			.executeQuery("");
+			String sql = String.format("", "");
+			while(rs.next()) {
+				
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public ArrayList<MemberBean> selectMembersByName(String name) {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "oracle", "password");
 			stmt = conn.createStatement();
-			String sql=String.format("INSERT INTO member(id,name,pass,ssn) \n"
-					+ "VALUES('%s','%s','%s','%s')", 
-					member.getId(),member.getName(),member.getPass(),member.getSsn());
-			System.out.println("SQL :::" +sql );
-			//rs = stmt.executeQuery(sql);
-			if(stmt.executeUpdate(sql)==1) {
-				System.out.println("회원가입 성공");
-			}else {
-				System.out.println("회원가입 실패");
+			String sql = String.format("", "");
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MemberBean selectMemberById(String id) {
+		MemberBean member = new MemberBean();
+		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			conn = DriverManager.getConnection(	"jdbc:oracle:thin:@localhost:1521:xe", 
+												"oracle", 
+												"password");
+			stmt = conn.createStatement();
+			String sql = String.format("", "");
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) { //검색된 결과가 존재하면 TRUE 리턴
+						
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return member;
+	}
+
+	@Override
+	public int countMembers() {
+		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "oracle", "password");
+			stmt = conn.createStatement();
+			String sql = String.format("", "");
+			int res = stmt.executeUpdate(sql);
+			if(res==1) {
+			System.out.println();	
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public boolean existMember(String id, String pass) {
+		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "oracle", "password");
+			stmt = conn.createStatement();
+			String sql = String.format("", "");
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	@Override
+	public void updateMember(MemberBean member) {
+		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "oracle", "password");
+			stmt = conn.createStatement();
+			String sql = String.format("", "");
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -41,38 +151,20 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public ArrayList<MemberBean> selectMembers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<MemberBean> selectByName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MemberBean selectById() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int countMembers() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void updateMember() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteMember() {
-		// TODO Auto-generated method stub
+	public void deleteMember(String id,String pass) {
+		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "oracle", "password");
+			stmt = conn.createStatement();
+			String sql = String.format("", "");
+			rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

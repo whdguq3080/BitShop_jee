@@ -27,5 +27,6 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 		<td>SSN</td>
 		<td><%=member.getSsn() %></td>
 	</tr>
+	<form action=""></form>
 </table>
 </div>

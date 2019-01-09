@@ -35,7 +35,7 @@ public class AccountController extends HttpServlet {
 		case "open-account":
 			System.out.println("open-account");
 			String money = request.getParameter("money");
-			String accNum = accountService.openAccountNum(Integer.parseInt(money));
+			String accNum = accountService.createAccountNum(Integer.parseInt(money));
 			AccountBean acc= accountService.listAccountNum(accNum);
 			String dest = request.getParameter("dest");
 			if(dest ==null) {

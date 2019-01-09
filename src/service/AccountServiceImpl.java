@@ -13,29 +13,22 @@ public class AccountServiceImpl implements AccountService {
 		list = new ArrayList<>();
 	}
 	@Override
-	public String openAccountNum(int money) {
+	public String createAccountNum(int money) {
 		String accountNum = "";
 		AccountBean account = new AccountBean();
-		account.setAccountNum(createAccountNum());
+		account.setAccountNum(openAccountNum());
 		account.setMoney(money);
-		account.setToday(date());
 		list.add(account);
 		accountNum = account.getAccountNum();
 		return accountNum;
 	}
 	@Override
-	public String createAccountNum() {
+	public String openAccountNum() {
 		Random random = new Random();
 		return random.nextInt(9000)+1000+"-"+random.nextInt(10000);	
 	}
 	@Override
-	public String date() {
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm");
-		return sdf.format(date);
-	}
-	@Override
-	public ArrayList<AccountBean> list() {
+	public ArrayList<AccountBean> accountlist() {
 		return list;
 	}
 	@Override
@@ -60,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
 		
 	}
 	@Override
-	public void updateWidthraw(String account, int money) {
+	public void updateWithdrawal(String account, int money) {
 		// TODO Auto-generated method stub
 		
 	}
