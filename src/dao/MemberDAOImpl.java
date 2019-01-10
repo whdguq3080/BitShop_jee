@@ -21,7 +21,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void insertMember(MemberBean member) {
 		try {
-			DatabaseFactory
+			int rs =DatabaseFactory
 			.createDatabase("oracle")
 			.getConnection()
 			.createStatement()
@@ -29,6 +29,11 @@ public class MemberDAOImpl implements MemberDAO {
 					"INSERT INTO member(id,name,pass,ssn) \n"
 					+ "VALUES('%s','%s','%s','%s')", 
 					member.getId(),member.getName(),member.getPass(),member.getSsn()));
+			if(rs ==1) {
+				System.out.println("회원가입 성공");
+			}else {
+				System.out.println("회원가입 실패");
+			}
 		} 
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -78,19 +83,23 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public MemberBean selectMemberById(String id) {
-		MemberBean member = new MemberBean();
+		MemberBean member = null;
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			conn = DriverManager.getConnection(	"jdbc:oracle:thin:@localhost:1521:xe", 
-												"oracle", 
-												"password");
-			stmt = conn.createStatement();
-			String sql = String.format("", "");
-			rs = stmt.executeQuery(sql);
-			while(rs.next()) { //검색된 결과가 존재하면 TRUE 리턴
-						
+			ResultSet rs = DatabaseFactory
+				.createDatabase("oracle")
+				.getConnection()
+				.createStatement()
+				.executeQuery(
+						String.format("SELECT * FROM member\n" + 
+						"WHERE id LIKE '%s'", id));
+			while(rs.next()) { //값이 있으면 true
+				member = new MemberBean();
+				member.setId(rs.getString("id"));
+				member.setName(rs.getString("name"));
+				member.setPass(rs.getString("pass"));
+				member.setSsn(rs.getString("ssn"));
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -116,22 +125,28 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public boolean existMember(String id, String pass) {
+	public MemberBean existMember(String id, String pass) {
+		MemberBean member = null; 
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "oracle", "password");
-			stmt = conn.createStatement();
-			String sql = String.format("", "");
-			rs = stmt.executeQuery(sql);
-			while(rs.next()) {
-				
-			}
-		} catch (Exception e) {
+			 rs = DatabaseFactory
+			.createDatabase("oracle")
+			.getConnection()
+			.createStatement()
+			.executeQuery(String.format("SELECT * FROM member\n" + 
+							"WHERE id LIKE '%s' and pass LIKE '%s' ", id,pass));
+			 while(rs.next()) {
+				 member = new MemberBean();
+				 member.setId(rs.getString("id"));
+				 member.setPass(rs.getString("pass"));
+				 member.setName(rs.getString("name"));
+				 member.setSsn(rs.getString("ssn"));
+				 
+			 }
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return false;
+		return member;
 	}
 	@Override
 	public void updateMember(MemberBean member) {

@@ -20,11 +20,21 @@ import service.MemberServiceImpl;
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MemberService memberService = MemberServiceImpl.getInstance();
 		MemberBean member = null;
+		MemberService memberService = MemberServiceImpl.getInstance();
+		/**
+		 * 디폴트 값
+		 * cmd : move
+		 * dir : member
+		 * page : main
+		 * dest : NONE
+		 */
 		String cmd = request.getParameter("cmd");
+		cmd = (cmd == null) ? "move" : cmd ;
 		String page = request.getParameter("page");
 		if(page == null) {page = "main";}
+		String dest = request.getParameter("dest");
+		if(dest == null) {dest = "NONE";}
 		System.out.println("page"+page);
 		String dir = request.getParameter("dir");
 		if(dir== null) {
@@ -36,25 +46,23 @@ public class MemberController extends HttpServlet {
 		System.out.println("cmd:"+cmd);
 		System.out.println("dir:"+dir);
 		
-		switch ((cmd == null) ? "move" : cmd) {
+		switch (cmd) {
 		case "login":
+			member = new MemberBean();
 			String id = request.getParameter("uid");
 			String pass = request.getParameter("upw");
-			
-			if (id.equals("test") && pass.equals("test")) {
+			boolean login = memberService.existMember(id, pass);
+			if (login) {
+				member = memberService.findMemberById(member.getId());
+				request.setAttribute("member",member);
+				request.setAttribute("dest", dest);
 			} else {
 				dir="";
 				page="index";
 			}
-			Command.move(request, response, dir,page);
 			break;
 		case "move":
-			String dest = request.getParameter("dest");
-			if(dest ==null) {
-				dest ="NONE";
-			}
-			request.setAttribute("dest",dest );
-			Command.move(request, response, dir,page);
+			request.setAttribute("dest",dest);
 			break;
 		case "join":
 			member = new MemberBean();
@@ -62,12 +70,17 @@ public class MemberController extends HttpServlet {
 			member.setName(request.getParameter("name"));
 			member.setPass(request.getParameter("pass"));
 			member.setSsn(request.getParameter("ssn"));
-			MemberServiceImpl.getInstance().createMember(member);
-			request.setAttribute("dest", "mypage");
-			request.setAttribute("member",  member);
-			Command.move(request, response, dir,page);
+			memberService.createMember(member);
+			member = memberService.findMemberById(member.getId());
+			request.setAttribute("member", member);
+			request.setAttribute("dest", dest);
+			break;
+		case "logout":
+			dir="";
+			page="index";
 			break;
 		}
+		Command.move(request, response, dir,page);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

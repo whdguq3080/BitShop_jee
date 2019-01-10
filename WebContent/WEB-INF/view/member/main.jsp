@@ -49,7 +49,10 @@
 			<%@ include file="join-form.jsp"%>
 			<%	
 			break;
-		
+		case "":
+			%>
+			<%	
+			break;
 		}
 			%>
 		</td>

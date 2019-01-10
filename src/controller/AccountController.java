@@ -55,6 +55,9 @@ public class AccountController extends HttpServlet {
 			request.setAttribute("dest",dest );
 			Command.move(request, response, dir,page);
 			break;
+		case "account-detail":
+			
+			break;
 	}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
