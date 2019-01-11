@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.Command;
 import domain.MemberBean;
@@ -37,6 +38,7 @@ public class MemberController extends HttpServlet {
 		if(dest == null) {dest = "NONE";}
 		System.out.println("page"+page);
 		String dir = request.getParameter("dir");
+		HttpSession session = request.getSession();
 		if(dir== null) {
 			String sPath= request.getServletPath();
 			sPath = sPath.replace(".do", "");
@@ -53,9 +55,10 @@ public class MemberController extends HttpServlet {
 			String pass = request.getParameter("upw");
 			boolean login = memberService.existMember(id, pass);
 			if (login) {
-				member = memberService.findMemberById(member.getId());
-				request.setAttribute("member",member);
-				request.setAttribute("dest", dest);
+				member = memberService.findMemberById(id);
+				session= request.getSession();
+				session.setAttribute("user", member);
+				request.setAttribute("dest", "welcome");
 			} else {
 				dir="";
 				page="index";
@@ -72,12 +75,21 @@ public class MemberController extends HttpServlet {
 			member.setSsn(request.getParameter("ssn"));
 			memberService.createMember(member);
 			member = memberService.findMemberById(member.getId());
-			request.setAttribute("member", member);
+			session = request.getSession();
+			session.setAttribute("user", member);
 			request.setAttribute("dest", dest);
 			break;
 		case "logout":
 			dir="";
 			page="index";
+			dest = "";
+			session.invalidate();
+			break;
+		case "detail":
+			request.setAttribute("dest", "member-detail");
+			break;
+		case "update":
+			request.setAttribute("dest", "member-update");
 			break;
 		}
 		Command.move(request, response, dir,page);

@@ -1,31 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<%@ page import="domain.MemberBean" %>
-<div id="mypage.jsp">
-<h1>마이페이지</h1>
+<div id="member-detail">
+<h1>회원 정보</h1>
 <%
-MemberBean member = (MemberBean)request.getAttribute("member");
+MemberBean user = (MemberBean)session.getAttribute("user");
 %>
 <table>
 	<tr>
-		<th>\</th>
+		<th></th>
 		<th>내용</th>
 	</tr>
 	<tr>
 		<td>ID</td>
-		<td><%=member.getId() %></td>
+		<td><%=user.getId() %></td>
 	</tr>
 	<tr>
 		<td>NAME</td>
-		<td><%=member.getName() %></td>
+		<td><%=user.getName() %></td>
 	</tr>
 	<tr>
-		<td>PASS</td>
-		<td><%=member.getPass() %></td>
+		<td>비밀번호</td>
+		<td><%=user.getPass() %></td>
 	</tr>
 	<tr>
 		<td>SSN</td>
-		<td><%=member.getSsn() %></td>
+		<td><%=user.getSsn() %></td>
 	</tr>
 </table>
 </div>
